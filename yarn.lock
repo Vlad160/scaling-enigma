@@ -26,7 +26,7 @@
     "@types/node" "*"
     form-data "^3.0.0"
 
-"@types/node@*":
+"@types/node@*", "@types/node@^14.14.10":
   version "14.14.10"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.10.tgz#5958a82e41863cfc71f2307b3748e3491ba03785"
   integrity sha512-J32dgx2hw8vXrSbu4ZlVhn1Nm3GbeCFNw2FWL8S5QKucHGY0cyNwjdQdO+KMBZ4wpmC7KhLCiNsdk1RFRIYUQQ==
@@ -691,6 +691,11 @@ saxes@^5.0.0:
   integrity sha512-5LBh1Tls8c9xgGjw3QrMwETmTMVk0oFgvrFSvWx62llR2hcEInrKNZ2GZCCuuy2lvWrdl5jhbpeqc5hRYKFOcw==
   dependencies:
     xmlchars "^2.2.0"
+
+sound-play@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/sound-play/-/sound-play-1.0.5.tgz#0995ad73c61f2281871895ed30ac99a3c3af2a8d"
+  integrity sha512-9ofZYwc+bsoavWvM4bbnt//YTh82KbZbkOtj9QhyAfP0XvtUAVU00BvLgBT5y8u8mXUjop1PpUvEfLC7K+3uuw==
 
 source-map-support@^0.5.17:
   version "0.5.19"

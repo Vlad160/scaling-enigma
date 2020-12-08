@@ -1,7 +1,5 @@
-import { Property, PropertyParser } from './property-parser';
+import { Property } from './property-parser';
 import { ParariusFetcher } from './pararius-fetcher';
-
-const ROOT = 'https://www.pararius.com';
 
 export interface CheckResult {
 	city: string;
@@ -10,7 +8,7 @@ export interface CheckResult {
 
 export class Checker {
 
-	constructor(private fetcher: ParariusFetcher, parser: PropertyParser) {}
+	constructor(private fetcher: ParariusFetcher) {}
 
 	async check(cities: string[]): Promise<CheckResult[]> {
 		return Promise.all(cities.map<CheckResult>(this.checkCity.bind(this)));

@@ -59,5 +59,4 @@ export class PropertyParser {
 			return RentType.ROOM
 		}
 	}
-
 }

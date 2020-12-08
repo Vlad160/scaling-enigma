@@ -1,17 +1,59 @@
 import * as readline from 'readline';
-import { Checker } from './checker';
+import { Checker, CheckResult } from './checker';
 import { ConsoleFormatter } from './console-formatter';
+import { Differ } from './differ';
+import * as sound from 'sound-play';
+import * as path from 'path';
+
+export const DEFAULT_CHECK_INTERVAL = 5 * 60 * 1000;
 
 export class CliApp {
 
-	constructor(private checker: Checker, private formatter: ConsoleFormatter) {}
+	private timeoutId: NodeJS.Timeout = null;
+	private checkResult: CheckResult[] = null;
+	private cities: string[] = [];
+
+	constructor(private checker: Checker,
+	            private formatter: ConsoleFormatter,
+	            private differ: Differ,
+	            private checkInterval = DEFAULT_CHECK_INTERVAL) {}
 
 	async start() {
-		const cities = await this.getCities();
-		const checkResult = await this.checker.check(cities);
-		const formatted = this.formatter.format(checkResult);
-		console.log(formatted.toString());
+		this.cities = await this.getCities();
+		await this.check();
+		this.scheduleCheck();
+	}
 
+	private async check() {
+		const checkResult = await this.checker.check(this.cities);
+		const diffIds = [];
+		if (this.checkResult) {
+			this.checkResult.forEach(value => {
+				const newResult = checkResult.find(x => x.city === value.city);
+				if (!newResult) {
+					return;
+				}
+				const diff = this.differ.getDiff(value, newResult);
+				const ids = diff.properties.map(p => p.id);
+				diffIds.push(...ids);
+			})
+		}
+		this.checkResult = checkResult;
+		const formatted = this.formatter.format(this.checkResult, diffIds);
+		if (diffIds.length > 0) {
+			this.playSound();
+		}
+		console.log(formatted.toString());
+		this.scheduleCheck();
+	}
+
+	private scheduleCheck() {
+		this.timeoutId = setTimeout(this.check.bind(this), this.checkInterval);
+	}
+
+	private playSound() {
+		console.log(sound);
+		sound.play(path.resolve(__dirname, './bell.mp3'));
 	}
 
 	async getCities() {
@@ -23,7 +65,7 @@ export class CliApp {
 			return new Promise<string>(resolve => {
 				rl.question('What cities we are going to check 🤔 (split with coma)?\n', (answer) => {
 					const trimmed = answer.trim();
-					resolve(trimmed)
+					resolve(trimmed);
 				});
 			})
 		}

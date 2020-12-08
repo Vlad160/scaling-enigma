@@ -3,16 +3,23 @@
   "version": "1.0.0",
   "license": "MIT",
   "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "build": "tsc",
+    "start:dev": "ts-node src/index.ts"
+  },
   "dependencies": {
     "chalk": "^4.1.0",
     "cli-table3": "^0.6.0",
     "jsdom": "^16.4.0",
     "node-fetch": "^2.6.1",
+    "sound-play": "^1.0.5",
     "user-agents": "^1.0.559"
   },
   "devDependencies": {
     "@types/chalk": "^2.2.0",
     "@types/jsdom": "^16.2.5",
+    "@types/node": "^14.14.10",
     "@types/node-fetch": "^2.5.7",
     "@types/user-agents": "^1.0.0",
     "https-proxy-agent": "^5.0.0",
