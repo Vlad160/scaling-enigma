@@ -21,16 +21,16 @@ export class CliApp {
 	async start() {
 		this.cities = await this.getCities();
 		await this.check();
-		this.scheduleCheck();
 	}
 
 	private async check() {
 		const checkResult = await this.checker.check(this.cities);
-		const diffIds = [];
+		const diffIds: string[] = [];
 		if (this.checkResult) {
 			this.checkResult.forEach(value => {
 				const newResult = checkResult.find(x => x.city === value.city);
 				if (!newResult) {
+					diffIds.push(...value.properties.map(p => p.id));
 					return;
 				}
 				const diff = this.differ.getDiff(value, newResult);
@@ -40,6 +40,7 @@ export class CliApp {
 		}
 		this.checkResult = checkResult;
 		const formatted = this.formatter.format(this.checkResult, diffIds);
+		console.log(`Check time: ${new Date().toLocaleTimeString()}`);
 		if (diffIds.length > 0) {
 			this.playSound();
 		}
@@ -52,7 +53,6 @@ export class CliApp {
 	}
 
 	private playSound() {
-		console.log(sound);
 		sound.play(path.resolve(__dirname, './bell.mp3'));
 	}
 

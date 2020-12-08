@@ -1,5 +1,4 @@
 import fetch from 'node-fetch';
-import { JSDOM } from 'jsdom';
 import { Property, PropertyParser } from './property-parser';
 import UserAgent from 'user-agents';
 
@@ -39,8 +38,6 @@ export class ParariusFetcher {
 			throw new Error(`Request failed with status code ${page.status} and status text ${page.statusText}`);
 		}
 		const text = await page.text();
-		const dom = new JSDOM(text);
-		const items = Array.from(dom.window.document.querySelectorAll('.search-list__item.search-list__item--listing'));
-		return items.map((property) => this.parser.parse(property));
+		return this.parser.parse(text);
 	}
 }

@@ -1,3 +1,5 @@
+import { JSDOM } from "jsdom";
+
 export enum RentType {
 	HOUSE = 'House',
 	APARTMENT = 'Apartment',
@@ -16,7 +18,13 @@ export class PropertyParser {
 
 	constructor(private siteRoot: string) {}
 
-	parse(fragment: Element): Property {
+	parse(text: string) {
+		const dom = new JSDOM(text);
+		const items = Array.from(dom.window.document.querySelectorAll('.search-list__item.search-list__item--listing'));
+		return items.map((property) => this.parseProperty(property));
+	}
+
+	parseProperty(fragment: Element): Property {
 		const title = this.getTitle(fragment);
 		const link = this.getLink(fragment);
 		const id = this.parseId(link);

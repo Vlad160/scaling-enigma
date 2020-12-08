@@ -11,7 +11,7 @@ export class ConsoleFormatter {
 			({ city, properties }) =>
 				properties.forEach(prop => {
 					let row = [city, prop.id, prop.title, prop.link, prop.price, prop.type];
-					if (!highlightIds.includes(prop.id) && highlightIds.length > 0) {
+					if (highlightIds.includes(prop.id)) {
 						row = row.map(x => chalk.yellow(x));
 					}
 					table.push(row);
