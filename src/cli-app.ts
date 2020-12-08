@@ -1,9 +1,9 @@
 import * as readline from 'readline';
+import * as sound from 'sound-play';
+import * as path from 'path';
 import { Checker, CheckResult } from './checker';
 import { ConsoleFormatter } from './console-formatter';
 import { Differ } from './differ';
-import * as sound from 'sound-play';
-import * as path from 'path';
 
 export const DEFAULT_CHECK_INTERVAL = 5 * 60 * 1000;
 

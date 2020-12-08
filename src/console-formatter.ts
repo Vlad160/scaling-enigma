@@ -1,6 +1,6 @@
-import { CheckResult } from './checker';
 import chalk from 'chalk';
 import Table from 'cli-table3';
+import { CheckResult } from './checker';
 
 export class ConsoleFormatter {
 	format(results: CheckResult[], highlightIds: string[] = []) {

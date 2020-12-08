@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
-import { Property, PropertyParser } from './property-parser';
 import UserAgent from 'user-agents';
+import { Property, PropertyParser } from './property-parser';
 
 export class ParariusFetcher {
 
