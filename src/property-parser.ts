@@ -48,8 +48,11 @@ export class PropertyParser {
 
 	private getPrice(fragment: Element): number {
 		const priceElementContent = fragment.querySelector('.listing-search-item__price').textContent;
-		const price = priceElementContent.match(/[\d,]+/gm)[0];
-		return Number.parseInt(price.replace(/,/g, ''));
+		const price = priceElementContent.match(/[\d,]+/gm);
+		if (!price || !price[0]) {
+			return null;
+		}
+		return Number.parseInt(price[0].replace(/,/g, ''));
 	}
 
 	private parseId(link: string): string {

@@ -5,7 +5,7 @@ import { Checker, CheckResult } from './checker';
 import { ConsoleFormatter } from './console-formatter';
 import { Differ } from './differ';
 
-export const DEFAULT_CHECK_INTERVAL = 5 * 60 * 1000;
+export const DEFAULT_CHECK_INTERVAL = 15 * 60 * 1000;
 
 export class CliApp {
 
